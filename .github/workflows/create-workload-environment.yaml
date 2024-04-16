@@ -54,9 +54,9 @@ jobs:
           GH_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
 
-          environment={{ inputs.workload_environment }}
-          region={{ inputs.region }}
-          workload_vnet={{ inputs.workload_vnet }}
+          environment=${{ inputs.workload_environment }}
+          region=${{ inputs.region }}
+          workload_vnet=${{ inputs.workload_vnet }}
 
           pushd /source/deploy/terraform/terraform-units/modules/sap_namegenerator
           region_map=$(echo var.region_mapping.${region} | terraform console | tr -d '"')
