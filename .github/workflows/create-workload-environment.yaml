@@ -6,7 +6,7 @@ on:
       deployer_name:
         description: "Deployer configuration name, use the following syntax: ENV-LOCA-VNET-INFRASTRUCTURE"
         required: true
-        type: string
+        type: environment
         default: "CTRL-WEEU-DEP01-INFRASTRUCTURE"
       workload_environment:
         description: "Workload environment (DEV, QA, PRD, ...)"
@@ -30,7 +30,7 @@ permissions:
   actions: write
 
 jobs:
-  opened:
+  create_workload_environment:
     name: Create workload environment
     environment: ${{ inputs.deployer_name }}
     runs-on: ubuntu-latest
