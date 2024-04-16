@@ -3,11 +3,10 @@ name: Create workload environment
 on:
   workflow_dispatch:
     inputs:
-      deployer_name:
+      deployer:
         description: "Deployer configuration name, use the following syntax: ENV-LOCA-VNET-INFRASTRUCTURE"
         required: true
         type: environment
-        default: "CTRL-WEEU-DEP01-INFRASTRUCTURE"
       workload_environment:
         description: "Workload environment (DEV, QA, PRD, ...)"
         required: true
@@ -32,7 +31,7 @@ permissions:
 jobs:
   create_workload_environment:
     name: Create workload environment
-    environment: "${{ inputs.deployer_name }}"
+    environment: ${{ inputs.deployer }}
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/devanshjainms/sap-automation:experimentalga
@@ -55,7 +54,6 @@ jobs:
           GH_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
 
-          deployer_name={{ inputs.deployer_name }}
           environment={{ inputs.workload_environment }}
           region={{ inputs.region }}
           workload_vnet={{ inputs.workload_vnet }}
