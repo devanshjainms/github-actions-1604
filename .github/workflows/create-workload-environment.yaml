@@ -32,7 +32,7 @@ permissions:
 jobs:
   create_workload_environment:
     name: Create workload environment
-    environment: ${{ inputs.deployer_name }}
+    environment: "${{ inputs.deployer_name }}"
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/devanshjainms/sap-automation:experimentalga
