@@ -1,12 +1,13 @@
 ARM_SUBSCRIPTION_ID=d6c8e3b6-467e-452e-97c9-49d9de9e37da
-keyvault=DEVCTWEEUSAP01user18E
 sshsecret=DEVCT-WEEU-SAP01-sshkey
 deployer_random_id=GOlIQw
 deployer_public_ip_address=20.224.200.238
 deployer_app_config_name=devctweeuapc18e
 created_resource_group_name=DEVCT-WEEU-SAP01-INFRASTRUCTURE
+keyvault=DEVCTWEEUSAP01user18E
+environment=DEVCT
 subscription=d6c8e3b6-467e-452e-97c9-49d9de9e37da
-STATE_SUBSCRIPTION=d6c8e3b6-467e-452e-97c9-49d9de9e37da
 client_id=5ca72ad5-a76c-4151-a8a1-2c82ae535372
 tenant_id=c01abe72-ffef-4ecc-bda0-937975b49e6b
-step=0
+STATE_SUBSCRIPTION=d6c8e3b6-467e-452e-97c9-49d9de9e37da
+step=2
