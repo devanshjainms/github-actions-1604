@@ -74,7 +74,6 @@ jobs:
 
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
           git config --global user.name "GitHub Actions"
-          echo "Workload environment created successfully."
 
           gh secret set CP_ARM_CLIENT_ID --body "${{ secrets.AZURE_CLIENT_ID }}" --env ${workload_config_name}
           gh secret set CP_ARM_CLIENT_SECRET --body "${{ secrets.AZURE_CLIENT_SECRET }}" --env ${workload_config_name}
