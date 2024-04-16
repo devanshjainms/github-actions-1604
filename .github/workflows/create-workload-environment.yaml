@@ -72,6 +72,7 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             ${url_to_call})
 
+          git config --global --add safe.directory ${GITHUB_WORKSPACE}
           echo "Workload environment created successfully."
 
           gh secret set CP_ARM_CLIENT_ID --body "${{ secrets.AZURE_CLIENT_ID }}" --env ${workload_config_name} -r ${{ github.repository }}
