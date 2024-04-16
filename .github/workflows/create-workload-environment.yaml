@@ -1,0 +1,88 @@
+name: Create workload environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployer_name:
+        description: "Deployer configuration name, use the following syntax: ENV-LOCA-VNET-INFRASTRUCTURE"
+        required: true
+        type: string
+        default: "CTRL-WEEU-DEP01-INFRASTRUCTURE"
+      workload_environment:
+        description: "Workload environment (DEV, QA, PRD, ...)"
+        required: true
+        type: string
+        default: TEST
+      region:
+        description: "Azure region to deploy the workload environment to. Use the short name, e.g. `westeurope`."
+        required: true
+        type: string
+        default: westeurope
+      workload_vnet:
+        description: "Workload VNet name"
+        required: true
+        type: string
+        default: SAP01
+
+permissions:
+  issues: write
+  contents: write
+  actions: write
+
+jobs:
+  opened:
+    name: Create workload environment
+    environment: ${{ inputs.deployer_name }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/devanshjainms/sap-automation:experimentalga
+    steps:
+      - name: Get app token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v3
+        with:
+          application_id: ${{ secrets.APPLICATION_ID }}
+          application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+          #organization: ${{ github.repository_owner }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.get_workflow_token.outputs.token }}
+
+      - name: Create GitHub Workload Environment
+        env:
+          GH_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+        run: |
+
+          deployer_name={{ inputs.deployer_name }}
+          environment={{ inputs.workload_environment }}
+          region={{ inputs.region }}
+          workload_vnet={{ inputs.workload_vnet }}
+
+          pushd /source/deploy/terraform/terraform-units/modules/sap_namegenerator
+          region_map=$(echo var.region_mapping.${region} | terraform console | tr -d '"')
+          popd
+
+          echo region_map: $region_map
+          echo region: $region
+
+          workload_config_name=${environment}-${region_map}-${workload_vnet}-INFRASTRUCTURE
+
+          url_to_call=/repos/${{ github.repository }}/environments/${workload_config_name^^}
+
+          _=$(gh api \
+            -X PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            ${url_to_call})
+
+          # Set the control plane app registration properties as secret in the workload environment
+          _=$(gh api \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            ${url_to_call}/secrets \
+            -F "name=CP_ARM_CLIENT_ID" \
+            -F "value=${{ secrets.AZURE_CLIENT_ID }}" \
+            -F "visibility=all")

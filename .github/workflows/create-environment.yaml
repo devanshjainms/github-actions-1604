@@ -48,7 +48,7 @@ jobs:
 
           environment=$(echo ${json_input} | jq -r '."Environment"')
           region=$(echo ${json_input} | jq -r '."Region"')
-          deployer_vnet=$(echo ${json_input} | jq -r '."Deployer Vnet"')
+          deployer_id=$(echo ${json_input} | jq -r '."Deployer ID"')
 
           pushd /source/deploy/terraform/terraform-units/modules/sap_namegenerator
           region_map=$(echo var.region_mapping.${region} | terraform console | tr -d '"')
@@ -57,7 +57,7 @@ jobs:
           echo region_map: $region_map
           echo region: $region
 
-          deployer_name=${environment}-${region_map}-${deployer_vnet}-INFRASTRUCTURE
+          deployer_name=${environment}-${region_map}-${deployer_id}-INFRASTRUCTURE
           library_name=${environment}-${region_map}-SAP_LIBRARY
 
           url_to_call=/repos/${{ github.repository }}/environments/${deployer_name^^}
@@ -74,7 +74,7 @@ jobs:
           cat .cfg_template/deployer.tfvars \
             | sed "s|@@ENV@@|${environment}|g" \
             | sed "s|@@REGION@@|${region}|g" \
-            | sed "s|@@VNET@@|${deployer_vnet}|g" \
+            | sed "s|@@ID@@|${deployer_id}|g" \
             | sed "s|@@REGION_DISPLAY_NAME@@|${region}|g" \
             > WORKSPACES/DEPLOYER/${deployer_name^^}/${deployer_name^^}.tfvars
 

@@ -30,10 +30,10 @@ body:
       required: true
 
   - type: input
-    id: vnet_name
+    id: deployer_id
     attributes:
-      label: '​Deployer Vnet​' # U+200B - Zero Width Space; to make sure the UI stays clean
-      description: 'Virtual network in which the deployer should be deployed. Max 7 characters.'
+      label: '​Deployer ID​' # U+200B - Zero Width Space; to make sure the UI stays clean
+      description: 'Deployer identifier. Max 7 characters.'
       placeholder: DEP01
     validations:
       required: true
