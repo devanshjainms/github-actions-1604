@@ -73,6 +73,5 @@ jobs:
             ${url_to_call})
 
           echo "Workload environment created successfully."
-          echo "${{ secrets.CP_ARM_CLIENT_ID }}" >> $GITHUB_ENV
 
           gh secret set CP_ARM_CLIENT_ID --body "${{ secrets.AZURE_CLIENT_ID }}" --env ${workload_config_name} -r ${{ github.repository }}
