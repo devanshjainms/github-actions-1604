@@ -1,0 +1,19 @@
+keyvault=DEVCTWEEUSAP01user18E
+ARM_SUBSCRIPTION_ID=d6c8e3b6-467e-452e-97c9-49d9de9e37da
+REMOTE_STATE_RG=DEVCT-WEEU-SAP_LIBRARY
+client_id=5ca72ad5-a76c-4151-a8a1-2c82ae535372
+tenant_id=c01abe72-ffef-4ecc-bda0-937975b49e6b
+deployer_tfstate_key=DEVCT-WEEU-SAP01-INFRASTRUCTURE.terraform.tfstate
+REMOTE_STATE_SA=devctweeutfstatee48
+subscription=d6c8e3b6-467e-452e-97c9-49d9de9e37da
+STATE_SUBSCRIPTION=d6c8e3b6-467e-452e-97c9-49d9de9e37da
+tfstate_resource_id=/subscriptions/d6c8e3b6-467e-452e-97c9-49d9de9e37da/resourceGroups/DEVCT-WEEU-SAP_LIBRARY/providers/Microsoft.Storage/storageAccounts/devctweeutfstatee48
+workload_zone_prefix=
+Warning: No outputs found
+
+The state file either has no outputs defined, or all the defined outputs are
+empty. Please define an output in your configuration with the `output`
+keyword and run `terraform refresh` for it to become available. If you are
+using interpolation, please verify the interpolated value is not empty. You
+can use the `terraform console` command to assist.
+landscape_tfstate_key=DEVWZ-WEEU-SAP01-INFRASTRUCTURE.terraform.tfstate
