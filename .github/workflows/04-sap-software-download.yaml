@@ -64,7 +64,7 @@ jobs:
       - name: Prepare SAP software download
         run: |
           cd ${SAP_AUTOMATION_REPO_PATH}
-          deploy/automation/02-deploy-sap-workload-zone/01-deploy-sap-workload-zone.sh
+          deploy/automation/04-sap-software-download/01-prepare-software-download.sh
         env:
           bom_base_name: ${{ inputs.bom_base_name }}
           region: ${{ inputs.region }}
@@ -76,7 +76,6 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           SUsername: ${{ secrets.S_USERNAME }}
           SPassword: ${{ secrets.S_PASSWORD }}
-          SAP_AUTOMATION_REPO_PATH: ${{ github.workspace }}
           USE_MSI: false
           deployerconfig: ${{ inputs.control_plane_environment }}.tfvars
           deployerfolder: ${{ inputs.control_plane_environment }}
