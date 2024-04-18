@@ -77,7 +77,6 @@ jobs:
           SUsername: ${{ secrets.S_USERNAME }}
           SPassword: ${{ secrets.S_PASSWORD }}
           SAP_AUTOMATION_REPO_PATH: ${{ github.workspace }}
-          CONFIG_REPO_PATH: ${{ github.workspace }}/config
           USE_MSI: false
           deployerconfig: ${{ inputs.control_plane_environment }}.tfvars
           deployerfolder: ${{ inputs.control_plane_environment }}
