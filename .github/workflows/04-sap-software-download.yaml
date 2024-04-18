@@ -15,7 +15,7 @@ on:
         required: true
         type: choice
         options:
-          - ABC
+          - NW750_HANA_v0004ms
       control_plane_environment:
         description: "Control Plane Environment"
         required: true
