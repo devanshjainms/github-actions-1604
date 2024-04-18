@@ -16,7 +16,7 @@ on:
         type: choice
         options:
           - NW750_HANA_v0004ms
-      control_plane_environment:
+      deployer:
         description: "Control Plane Environment"
         required: true
         type: environment
@@ -38,7 +38,7 @@ permissions:
 jobs:
   prepare_download:
     name: Prepare Download
-    environment: ${{ inputs.control_plane_environment }}
+    environment: ${{ inputs.deployer }}
     runs-on: self-hosted
     container:
       image: ghcr.io/devanshjainms/sap-automation:experimentalga
@@ -64,11 +64,12 @@ jobs:
       - name: Prepare SAP software download
         run: |
           cd ${SAP_AUTOMATION_REPO_PATH}
-          deploy/automation/04-sap-software-download/01-prepare-software-download.sh
+          deploy/automation/02-deploy-sap-workload-zone/01-deploy-sap-workload-zone.sh
         env:
+          APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
           bom_base_name: ${{ inputs.bom_base_name }}
           region: ${{ inputs.region }}
-          environment: ${{ inputs.control_plane_environment }}
+          environment: ${{ inputs.deployer }}
           re_download: ${{ inputs.re_download }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -77,6 +78,5 @@ jobs:
           SUsername: ${{ secrets.S_USERNAME }}
           SPassword: ${{ secrets.S_PASSWORD }}
           USE_MSI: false
-          deployerconfig: ${{ inputs.control_plane_environment }}.tfvars
-          deployerfolder: ${{ inputs.control_plane_environment }}
-          APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+          deployerconfig: ${{ inputs.deployer }}.tfvars
+          deployerfolder: ${{ inputs.deployer }}
