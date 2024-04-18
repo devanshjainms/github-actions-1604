@@ -64,7 +64,7 @@ jobs:
       - name: Prepare SAP software download
         run: |
           cd ${SAP_AUTOMATION_REPO_PATH}
-          deploy/automation/02-deploy-sap-workload-zone/01-prepare-software-download.sh
+          deploy/automation/04-sap-software-download/01-prepare-software-download.sh
         env:
           APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
           bom_base_name: ${{ inputs.bom_base_name }}
